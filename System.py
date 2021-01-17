@@ -1,6 +1,6 @@
 from collections import defaultdict
 from copy import deepcopy
-from typing import List
+from typing import List, Dict, Tuple
 
 from BusLine import BusLine
 from Bus import Bus
@@ -17,7 +17,8 @@ class System:
         """
         create new instance of system
         """
-        self.bus_lines = {}
+        self.times_between = {}
+        self.bus_lines: Dict[int, BusLine] = {}
         # tuple of station id: travel time
         self.map = {}
         # create Passenger list\
@@ -124,8 +125,22 @@ class System:
         """
         new_sys = System()
         bus_line = self.bus_lines[line_id]
-        new_bus_line = BusLine(bus_line.station_ids, bus_line.times_between, new_sys, line_id)
+        new_bus_line = BusLine(bus_line.station_ids, new_sys, line_id)
         new_sys.add_bus_lines([new_bus_line])
+        new_sys.add_distance_map(self.distance_map())
         passengers = self.passengers()
         new_sys.add_passengers([ps for ps in passengers if ps.wanted_bus == line_id])
         return new_sys
+
+    def add_distance_map(self, times_between: Dict[Tuple[int, int], int]) -> None:
+        """
+        set the distance between stations
+        :param times_between: distance map
+        """
+        self.times_between = times_between
+
+    def distance_map(self) -> Dict[Tuple[int, int], int]:
+        """
+        :return: the distance map
+        """
+        return self.times_between

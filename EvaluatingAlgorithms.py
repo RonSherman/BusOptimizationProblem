@@ -23,7 +23,7 @@ def compare_algorithms(system: System,
     bests_each_iteration = []
     for i, algo in enumerate(algorithms):
         start = time.time()
-        ((best_sol), best_each_iteration) = algo(system, lim_seconds=lim_seconds)
+        (best_sol, best_each_iteration) = algo(system, lim_seconds=lim_seconds)
         algo1_time = time.time() - start
         print(f"Algo {i} Loss After {algo1_time} Seconds:")
         print(total_loss(system, best_sol[0], get_hint=False))

@@ -241,7 +241,7 @@ def mutation(system: System,
 
 def genetic_algorithm(system,
                       lim_seconds: int = 9223372036854775807,
-                      with_size_adviser: bool = False,
+                      with_size_adviser: bool = True,
                       num_generations: int = 100,
                       show_graph: bool = True) -> Tuple[Tuple[Dict[int, List[Tuple[int, int]]],
                                                               Dict[int, List[Tuple[int, int]]]],
@@ -321,7 +321,7 @@ def union_sol_of_lines(sol_map: Dict[int, Tuple[Dict[int, List[Tuple[int, int]]]
 def genetic_algorithm_optimize_lines_sep(system: System,
                                          lim_seconds: int = 9223372036854775807,
                                          with_size_adviser: bool = True,
-                                         num_generations_for_each_line: int = 20,
+                                         num_generations_for_each_line: int = 50,
                                          show_graph: bool = True) \
         -> Tuple[Tuple[Dict[int, List[Tuple[int, int]]],
                        Dict[int, List[Tuple[int, int]]]],

@@ -38,7 +38,7 @@ def plot_graph_from_the_middle(name: str,
 
 def simulated_annealing(system: System,
                         lim_seconds: int = 9223372036854775807,
-                        with_size_adviser: bool = False,
+                        with_size_adviser: bool = True,
                         initial_temp: int = 90,
                         alpha: float = 0.05,
                         show_graph: bool = True) -> Tuple[Tuple[Dict[int, List[Tuple[int, int]]],

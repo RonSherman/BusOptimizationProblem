@@ -86,6 +86,7 @@ def calc_wait_time(system: System,
             if passenger.total_waited_time == -1:
                 not_picked[passenger.wanted_bus] += 1
                 punishment += 50 * not_picked[passenger.wanted_bus]
+                # punishment += 125
             else:
                 total_wait += passenger.total_waited_time
     total_wait += punishment

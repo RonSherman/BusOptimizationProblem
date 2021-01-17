@@ -40,7 +40,7 @@ def create_random_bus(system: System, bl_id: int, sizes: List[int]) -> Tuple[int
     :param sizes: the possible sizes
     :return: the bus exit time and size
     """
-    minute = random.randint(0,24*60-1)#get_random_arrival_time(system, bl_id)##  #
+    minute = get_random_arrival_time(system, bl_id)  # random.randint(0,24*60-1)
     # minute = int(min(64*24-1,max(0,random.normalvariate(60*24/2,math.sqrt(50*60*24/2)))))
     size = random.choice(sizes)
     return minute, size
@@ -142,8 +142,9 @@ def generate_lines(num_lines: int, num_stations: int, system: System) -> Tuple[L
                 # distances[(line_stations[j+1], line_stations[j])] = \
                 # distances[(line_stations[j], line_stations[j+1])] for reverse lines
         line_id = i * 10 + random.randint(0, 9)
-        lines.append(BusLine(line_stations, distances, system, line_id))
+        lines.append(BusLine(line_stations, system, line_id))
         # lines.append(BusLine(list(reversed(line_stations)),distances,system,str(line_id)+'R')) for reverse lines
+    system.add_distance_map(distances)
     return lines, stations_id
 
 
@@ -198,22 +199,47 @@ def read_system_from_file(file_name: str) -> System:
         while line:
             xy, dist = line.split(':')
             x, y = xy.split(',')
-            dist_map[(x, y)] = dist
+            dist_map[(int(x), int(y))] = int(dist)
             line = file_system.readline().strip()
         line = file_system.readline().strip()
         while line:
             line_id, stations = line.split(':')
             line_stations = stations.split(',')
-            bus_lines.append(BusLine(line_stations, dist_map, system, line_id))
+            bus_lines.append(BusLine(list(map(int,line_stations)), system, int(line_id)))
             line = file_system.readline().strip()
         line = file_system.readline().strip()
         while line:
             minute, wanted_line, start, dest = line.split(',')
-            ps.append(Passenger(start, dest, wanted_line, minute))
+            ps.append(Passenger(int(start), int(dest), int(wanted_line), int(minute)))
             line = file_system.readline().strip()
     system.add_bus_lines(bus_lines)
     system.add_passengers(ps)
+    system.add_distance_map(dist_map)
     return system
+
+
+def write_system_to_file(system: System, file_name: str) -> None:
+    """
+    create System from file
+    :param system: the system to save
+    :param file_name: the name of the file with the data on the system
+    """
+    stations_ids = set()
+    dists = []
+    for k, v in system.distance_map().items():
+        stations_ids.update(k)
+        dists.append(f'{k[0]},{k[1]}:{v}\n')
+    stations_ids = [f"{','.join(list(map(str, stations_ids)))}\n"]
+
+    bus_lines = [f"{line}:{','.join(list(map(str, system.bus_lines[line].station_ids)))}\n" for line in system.lines()]
+    passengers = [f'{ps.arrival_time}, {ps.wanted_bus}, {ps.start_id}, {ps.dest_id}\n' for ps in system.passengers()]
+    with open(file_name, 'w') as file_system:
+        file_system.writelines(stations_ids)
+        file_system.writelines(dists)
+        file_system.write('\n')
+        file_system.writelines(bus_lines)
+        file_system.write('\n')
+        file_system.writelines(passengers)
 
 
 def create_system(number_of_lines: int, number_of_stations: int, number_of_peoples_per_line: int) -> System:

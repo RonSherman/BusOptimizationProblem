@@ -1,6 +1,8 @@
 from collections import defaultdict
 from typing import List, Tuple, Dict
 
+from Passenger import Passenger
+
 
 class BusLine:
     """
@@ -8,17 +10,16 @@ class BusLine:
     """
 
     # number of stations ids, time between each
-    def __init__(self, station_ids: List[int], times_between: Dict[Tuple[int, int], int], system: 'System',
+    def __init__(self, station_ids: List[int], system: 'System',
                  line_id: int) -> None:
         """
         :param station_ids: the stations that this line go throw
-        :param times_between: the distance between each station in the route
         :param system: the system this bus line belong to
         :param line_id: id for this line
         """
         self.system = system
         self.station_ids = station_ids
-        self.times_between = times_between
+
         self.id = line_id
         # CURRENT id station, list of people waiting for this line
 
@@ -36,7 +37,7 @@ class BusLine:
         return self.station_ids[i]
 
     # new passengers arrived
-    def add_passengers(self, passengers: List['Passenger']) -> None:
+    def add_passengers(self, passengers: List[Passenger]) -> None:
         """
         add passengers that wait for this line
         :param passengers: list of passengers to add
@@ -64,11 +65,12 @@ class BusLine:
         time = 0
         # cur_stat=stat_id
         flag = False
-        for i, sa in enumerate(self.station_ids):
+        for i, sa in enumerate(self.station_ids[:-1]):
             if sa == stat_id:
                 flag = True
                 break
-            time += self.times_between[(self.station_ids[i], self.station_ids[i + 1])]
+            time += self.system.distance_map()[(self.station_ids[i], self.station_ids[i + 1])]
         if not flag:
+            print (stat_id, self.id)
             raise Exception("A case that will never happen- Yehonatan harmatz")
         return time

@@ -16,7 +16,7 @@ class Bus:
         self.passengers = []
         self.station_i = 0
         self.current_station_id = line.get_i_station(self.station_i)
-        self.time_till_station = line.times_between[(line.get_i_station(0), line.get_i_station(1))]
+        self.time_till_station = line.system.distance_map()[(line.get_i_station(0), line.get_i_station(1))]
         self.max_size = max_size
         self.line = line
         self.counter = 0
@@ -39,7 +39,7 @@ class Bus:
                 if self.size_adviser:
                     self.size_adviser.bus_stopped(self)
                 return False
-            self.time_till_station = self.line.times_between[
+            self.time_till_station = self.line.system.distance_map()[
                 (self.line.get_i_station(self.station_i), self.line.get_i_station(self.station_i + 1))]
             self.current_station_id = self.line.get_i_station(self.station_i)
             return True
