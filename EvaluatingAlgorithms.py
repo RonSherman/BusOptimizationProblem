@@ -40,11 +40,17 @@ def more_information(system: System, sol: Tuple[Dict[int, List[Tuple[int, int]]]
         -> Tuple[int, int, Dict[int, int], int, float]:
     """
     get the following information about the solution:
+
     - total time waited
+
     - total number of people that doesn't got on a bus
+
     - number of people that doesn't got on a bus in each line
+
     - the total punishment in the wait time for people that doesn't got on a bus
+
     - average time waited (for people who got on a bus)
+
     :param system: the system we work in
     :param sol: the solution to get data for
     :return: tha data mentioned above
