@@ -135,7 +135,7 @@ def generate_lines(num_lines: int, num_stations: int, system: System) -> Tuple[L
     distances = {}
     lines = []
     for i in range(num_lines):
-        line_stations = random.sample(stations_id, random.randint(min(5, max(num_stations // 2, 2)), num_stations))
+        line_stations = random.sample(stations_id, random.randint(min(5, num_stations), num_stations))
         for j in range(len(line_stations) - 1):
             if (line_stations[j], line_stations[j + 1]) not in distances:
                 distances[(line_stations[j], line_stations[j + 1])] = random.randint(5, 25)
