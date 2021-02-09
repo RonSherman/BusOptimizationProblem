@@ -15,7 +15,7 @@ and return the price, the total waited time.
 
 ## Run the program: options to run
 
-requirements: python version 3.7
+requirements: python version 3
 
 ### generate a new random system
 
