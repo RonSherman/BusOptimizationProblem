@@ -10,7 +10,7 @@ We write two optimization algorithems Genentic Algorithem (GA) and Simulated Ann
 
 ## Optimization
 
-The problem is multi objective and doesnt have close function and therfore we wrote simulation that get system and list of buses (minute, size, busline)
+The problem is multi objective and doesnt have close function and therefore we wrote simulation that get system and list of buses (minute, size, busline)
 and return the price, the total waited time.
 
 ## Run the program: options to run
