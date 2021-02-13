@@ -11,25 +11,31 @@ We write two optimization algorithems Genentic Algorithem (GA) and Simulated Ann
 ## Optimization
 
 The problem is multi objective and doesnt have clear function representation and therefore we wrote simulation that get system and list of buses (minute, size, busline)
-and return the price, the total waited time.
+and returns the price, the total waited time.
 
-## Run the program: options to run
+## Running the program
 
-requirements: python version 3
+Requirements: Python 3.X
 
 ### generate a new random system
 
-read create_system documentation (in SystemGenerator.py)
+Instructions can be found in *create_system* documentation (in SystemGenerator.py)
 
 ### save system to file
-* for readable file use write_system_to_file (in SystemGenerator.py)
-* for pickle file use save_object_to_file (in SystemGenerator.py)
+* for readable file use *write_system_to_file* (in SystemGenerator.py)
+* for pickle file use *save_object_to_file* (in SystemGenerator.py)
 
 ### read system from file
-* for readable file use read_system_from_file (in SystemGenerator.py)
-* for pickle file use load_object_from_file (in SystemGenerator.py)
+* for readable file use *read_system_from_file* (in SystemGenerator.py)
+* for pickle file use *load_object_from_file* (in SystemGenerator.py)
 
 ### solve an input system
 
-* for GA - read genetic_algorithm\[_optimize_lines_sep\] documentation (in GeneticAlgorithm.py)
-* for SA - read simulated_annealing\[_optimize_lines_sep\] documentation (in SimulatedAnneling.py)
+* For GA - read *genetic_algorithm\[_optimize_lines_sep\]* documentation (in GeneticAlgorithm.py)
+* For SA - read *simulated_annealing\[_optimize_lines_sep\]* documentation (in SimulatedAnneling.py)
+
+
+### To Be Added
+
+* Multi-Threaded Usage 
+* C++ Implementation (fully/partially)
